@@ -1,45 +1,54 @@
-<!DOCTYPE html>
-<html lang="ar">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>شيشسي</title>
-    <style>
-        /* تخصيص حجم المشغل */
-        video {
-            width: 100%;
-            height: 100vh; /* ارتفاع كامل للشاشة */
-        }
-    </style>
-</head>
-<body>
-    <!-- مشغل الفيديو -->
-    <video id="video" controls></video>
+<script type="text/javascript">//jwplayer.defaults = { "plugins": {
+//    "ping": {}
+//  } };
+  jwplayer("vplayer").setup({
+    sources: [{file:"https://master.c.scdns.io/stream/v2/1f_DkLbeMhxcEq6UtKJ6iA/1741070616/normal/0/154.182.225.13/no/01d7b660408b6eae4cd057a54d3685e2/web184.faselhd.cafe/master.m3u8",label:"480p"},{file:"",label:"320p"}],
+    image: "https://m.media-amazon.com/images/I/7199jtmPkrL._AC_SY741_.jpg",
+    width: "100%", 
+    height: "100%",
+    stretching: "exactfit",
+    duration: "4472.80",
+    //aspectratio: "16:9",
+    preload: 'auto',
+    androidhls: "true",
+    hlshtml: "true",
+    primary: "html5",
+    startparam: "start"
+    
+    ,tracks: []
+    ,"sharing": {code: "%3CIFRAME SRC%3D%22https%3A%2F%2Fv.aflam.news%2Fembed-jgt3lsphfi4y.html%22 FRAMEBORDER%3D0 MARGINWIDTH%3D0 MARGINHEIGHT%3D0 SCROLLING%3DNO WIDTH%3D640 HEIGHT%3D360 allowfullscreen%3E%3C%2FIFRAME%3E", link: "https://v.aflam.news/jgt3lsphfi4y.html", sites: [] },abouttext:"", aboutlink:"https://v.aflam.news",cast: {},playbackRateControls: "true", playbackRates: [0.5, 1, 2, 3]
+  });
+var vvplay,vvad,x2ok=0;
+var vastdone1=0,vastdone2=0;
+var player = jwplayer();
+player.on('time', function(x) { 
+    if(5>0 && x.position>=5 && vvad!=1){vvad=1;$('div.video_ad_fadein').fadeIn('slow');}
+    if(x2ok==0 && x.position>=2012 && x.position<=(2012+2)){x2ok=x.position;}
+    
+});
+player.on('play', function(x) { doPlay(x); });
+player.on('complete', function() { $('div.video_ad').show();  });
 
-    <!-- إضافة مكتبة hls.js -->
-    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-    <script>
-        // رابط الفيديو
-        const videoUrl = "https://aflam-cdn-cash-27-rty.dialymotion.online/yh5chvappxikjnl75zpkrld3vjqhvkpgeandur76liq2fget6aaslaasusta/v.mp4";
+function doPlay(x)
+{
+  $('div.video_ad').hide();
+  if(vvplay)return;
+  vvplay=1;
+  adb=0;
+  if( window.cRAds === undefined ){ adb=1; }
+  $.get('https://v.aflam.news/dl?op=view&file_code=jgt3lsphfi4y&hash=800842-0-0-1740659767-27b862233b6c85ab8175e34eca1ca9c6&embed=&adb='+adb, function(data) {$('#fviews').html(data);} );
+  
+  
+}
+    player.on('ready', function(){
+    		
 
-        // التحقق من دعم HLS
-        if (Hls.isSupported()) {
-            const video = document.getElementById('video');
-            const hls = new Hls();
-            hls.loadSource(videoUrl);
-            hls.attachMedia(video);
-            hls.on(Hls.Events.MANIFEST_PARSED, function () {
-                video.play();
-            });
-        } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-            // دعم HLS بشكل افتراضي في المتصفحات مثل Safari
-            video.src = videoUrl;
-            video.addEventListener('loadedmetadata', function () {
-                video.play();
-            });
-        } else {
-            alert('المتصفح لا يدعم تشغيل هذا الفيديو.');
-        }
-    </script>
-</body>
-</html>
+            //var mybtn=$("<div style='padding-left: 5px; margin-right: 5px; margin-top: 10px; background-image: url(/images/ico.png);background-repeat: no-repeat;' class='jw-icon jw-icon-inline jw-button-color jw-reset jw-icon-logo'></div>");
+            //mybtn.click(showCCform);
+            //$(".jw-controlbar-right-group").append(mybtn);
+    });
+
+
+
+
+</script>
