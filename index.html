@@ -3,12 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مشغل فيديو</title>
-    <!-- إضافة مكتبة Video.js -->
-    <link href="https://vjs.zencdn.net/7.15.4/video-js.css" rel="stylesheet" />
+    <title>شيشسي</title>
     <style>
         /* تخصيص حجم المشغل */
-        .video-js {
+        video {
             width: 100%;
             height: 100vh; /* ارتفاع كامل للشاشة */
         }
@@ -16,51 +14,32 @@
 </head>
 <body>
     <!-- مشغل الفيديو -->
-    <video
-        id="my-video"
-        class="video-js vjs-default-skin"
-        controls
-        preload="auto"
-        width="100%"
-        height="100%"
-    >
-        <p class="vjs-no-js">
-            لرؤية الفيديو، يرجى تمكين JavaScript، أو التفكير في الترقية إلى متصفح يدعم
-            <a href="https://videojs.com/html5-video-support/" target="_blank">HTML5 video</a>
-        </p>
-    </video>
+    <video id="video" controls></video>
 
-    <!-- إضافة مكتبة Video.js -->
-    <script src="https://vjs.zencdn.net/7.15.4/video.js"></script>
+    <!-- إضافة مكتبة hls.js -->
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
     <script>
         // رابط الفيديو
         const videoUrl = "https://aflam-cdn-cash-27-rty.dialymotion.online/yh5chvappxikjnl75zpkrld3vjqhvkpgeandur76liq2fget6aaslaasusta/v.mp4";
 
-        // تحميل الفيديو كـ Blob
-        fetch(videoUrl)
-            .then(response => response.blob())
-            .then(blob => {
-                // إنشاء Blob URL
-                const blobUrl = URL.createObjectURL(blob);
-
-                // تهيئة المشغل
-                const player = videojs('my-video', {
-                    controls: true,
-                    autoplay: false,
-                    preload: 'auto',
-                    fluid: false,
-                    width: "100%",
-                    height: "100%",
-                    stretching: "exactfit",
-                    primary: "html5",
-                });
-
-                // تعيين مصدر الفيديو كـ Blob URL
-                player.src({ type: 'video/mp4', src: blobUrl });
-            })
-            .catch(error => {
-                console.error('حدث خطأ أثناء تحميل الفيديو:', error);
+        // التحقق من دعم HLS
+        if (Hls.isSupported()) {
+            const video = document.getElementById('video');
+            const hls = new Hls();
+            hls.loadSource(videoUrl);
+            hls.attachMedia(video);
+            hls.on(Hls.Events.MANIFEST_PARSED, function () {
+                video.play();
             });
+        } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+            // دعم HLS بشكل افتراضي في المتصفحات مثل Safari
+            video.src = videoUrl;
+            video.addEventListener('loadedmetadata', function () {
+                video.play();
+            });
+        } else {
+            alert('المتصفح لا يدعم تشغيل هذا الفيديو.');
+        }
     </script>
 </body>
 </html>
