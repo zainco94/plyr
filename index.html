@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مشغل فيديو</title>
+    <title>ئئئ</title>
     <!-- إضافة مكتبة Video.js -->
     <link href="https://vjs.zencdn.net/7.15.4/video-js.css" rel="stylesheet" />
     <style>
@@ -25,7 +25,7 @@
         height="100%"
     >
         <!-- رابط الفيديو -->
-        <source src="https://aflam-cdn-cash-27-rty.dialymotion.online/yh5chvappxikjnl75zpkrld3vjqhvkpgeandur76liq2fget6aaslaasusta/v.mp4" type="application/x-mpegURL" />
+        <source src="https://master.c.scdns.io/stream/v2/1f_DkLbeMhxcEq6UtKJ6iA/1741070616/normal/0/154.182.225.13/no/01d7b660408b6eae4cd057a54d3685e2/web184.faselhd.cafe/master.m3u8" type="application/x-mpegURL" />
         <p class="vjs-no-js">
             لرؤية الفيديو، يرجى تمكين JavaScript، أو التفكير في الترقية إلى متصفح يدعم
             <a href="https://videojs.com/html5-video-support/" target="_blank">HTML5 video</a>
@@ -52,14 +52,14 @@
         // دعم HLS إذا كان المتصفح لا يدعمه بشكل افتراضي
         if (Hls.isSupported()) {
             var hls = new Hls();
-            hls.loadSource('https://aflam-cdn-cash-27-rty.dialymotion.online/yh5chvappxikjnl75zpkrld3vjqhvkpgeandur76liq2fget6aaslaasusta/v.mp4');
+            hls.loadSource('https://master.c.scdns.io/stream/v2/1f_DkLbeMhxcEq6UtKJ6iA/1741070616/normal/0/154.182.225.13/no/01d7b660408b6eae4cd057a54d3685e2/web184.faselhd.cafe/master.m3u8');
             hls.attachMedia(player.tech().el());
             hls.on(Hls.Events.MANIFEST_PARSED, function () {
                 player.play();
             });
         } else if (player.tech().el().canPlayType('application/vnd.apple.mpegurl')) {
             // دعم HLS بشكل افتراضي في المتصفحات مثل Safari
-            player.src('https://aflam-cdn-cash-27-rty.dialymotion.online/yh5chvappxikjnl75zpkrld3vjqhvkpgeandur76liq2fget6aaslaasusta/v.mp4');
+            player.src('https://master.c.scdns.io/stream/v2/1f_DkLbeMhxcEq6UtKJ6iA/1741070616/normal/0/154.182.225.13/no/01d7b660408b6eae4cd057a54d3685e2/web184.faselhd.cafe/master.m3u8');
             player.play();
         }
     </script>
